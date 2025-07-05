@@ -40,3 +40,37 @@ h2 {
 .hidden {
   display: none;
 }
+
+/* Mobile Responsiveness for Cruise Ship Management System */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .form-container,
+  .dashboard,
+  .data-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  input,
+  button,
+  select {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  table {
+    font-size: 14px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  h1, h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
