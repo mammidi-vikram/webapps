@@ -1,99 +1,133 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #90cdf4, #667eea);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+:root {
+  --bg: #ffffff;
+  --text: #333;
+  --card: #f9f9f9;
+  --accent: #3182ce;
+  --button-hover: #2b6cb0;
+  --error-bg: #fff3cd;
+  --error-text: #856404;
 }
 
-.weather-container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+body.dark {
+  --bg: #1a202c;
+  --text: #f0f0f0;
+  --card: #2d3748;
+  --accent: #63b3ed;
+  --button-hover: #4299e1;
+  --error-bg: #4a5568;
+  --error-text: #fbd38d;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 14px;
+}
+
+.container {
+  background-color: var(--card);
+  padding: 30px 20px;
+  border-radius: 16px;
   max-width: 400px;
-  width: 90%;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.input-section {
+h1 {
+  margin-bottom: 20px;
+}
+
+.search-section {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 input[type="text"] {
   flex: 1;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 16px;
 }
 
 button {
-  background-color: #3182ce;
-  color: white;
-  padding: 10px 15px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
+  background-color: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #2b6cb0;
+  background-color: var(--button-hover);
 }
 
-#error-message {
-  color: red;
-  margin-top: 10px;
+.warning,
+.error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #eee;
 }
 
 .hidden {
   display: none;
 }
 
-.warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-  padding: 10px 15px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  font-size: 14px;
-  text-align: center;
+#weather-display img {
+  width: 80px;
+  margin: 10px 0;
 }
 
-/* Mobile Responsiveness for Weather App */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
+#weather-display h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
 
-  .weather-container {
-    width: 100%;
-    padding: 20px;
-  }
+#weather-display p {
+  font-size: 16px;
+  margin: 5px 0;
+}
 
-  .input-section {
-    flex-direction: column;
-    gap: 10px;
-  }
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--accent);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 10px auto;
+  animation: spin 1s linear infinite;
+}
 
-  input[type="text"],
-  button {
-    width: 100%;
-  }
-
-  #weather-display img {
-    width: 80px;
-    height: 80px;
-  }
-
-  #weather-display h2,
-  #weather-display p {
-    font-size: 16px;
-    text-align: center;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
