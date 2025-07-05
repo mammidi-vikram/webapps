@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- 🔔 UI Warning for missing API key -->
+  <div id="config-warning" class="warning hidden">
+    ⚠️ Please insert a valid OpenWeatherMap API key in <code>script.js</code> to use this app.
+  </div>
+
   <div class="weather-container">
     <h1>Weather App</h1>
     <div class="input-section">
@@ -21,6 +27,7 @@
     </div>
     <div id="error-message" class="error hidden"></div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
