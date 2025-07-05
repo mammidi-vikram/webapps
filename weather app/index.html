@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="theme-toggle">
-      <label>
-        🌙 <input type="checkbox" id="dark-toggle" />
-        Dark Mode
-      </label>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WeatherSync - Professional Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen flex items-center justify-center p-4 sm:p-6">
+    <div id="appContainer" class="w-full max-w-md bg-white rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 relative">
+        <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-4 sm:mb-6">WeatherSync</h1>
+        
+        <!-- Input Form -->
+        <form id="weatherForm" class="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
+            <input 
+                type="text" 
+                id="locationInput" 
+                placeholder="Enter city name" 
+                class="flex-1 p-3 text-base sm:text-lg rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+            >
+            <button 
+                type="submit" 
+                class="bg-blue-600 text-white px-4 py-3 text-base sm:text-lg rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:opacity-50"
+            >
+                Get Weather
+            </button>
+        </form>
 
-    <div id="config-warning" class="warning hidden">
-      ⚠️ Please insert a valid OpenWeatherMap API key in
-      <code>script.js</code> to use this app.
-    </div>
+        <!-- Weather Display -->
+        <div id="weatherResult" class="hidden text-center">
+            <h2 id="cityName" class="text-xl sm:text-2xl font-semibold text-gray-800 mb-2"></h2>
+            <img id="weatherIcon" class="mx-auto mb-3 sm:mb-4 w-12 h-12 sm:w-16 sm:h-16" src="" alt="Weather Icon">
+            <p id="temperature" class="text-lg sm:text-xl font-medium text-gray-700 mb-2"></p>
+            <p id="description" class="text-base sm:text-lg text-gray-600 capitalize"></p>
+        </div>
 
-    <div class="container">
-      <h1>🌤️ Weather App</h1>
+        <!-- Loading Spinner -->
+        <div id="loading" class="hidden text-center">
+            <div class="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-t-2 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="text-gray-600 mt-2 text-sm sm:text-base">Fetching weather...</p>
+        </div>
 
-      <div class="search-section">
-        <input type="text" id="city-input" placeholder="Enter a city" />
-        <button id="get-weather-btn">Get Weather</button>
-      </div>
+        <!-- API Key Error Overlay -->
+        <div id="apiKeyOverlay" class="hidden fixed inset-0 bg-black bg-opacity-30 z-40"></div>
 
-      <div id="error-message" class="error hidden"></div>
-
-      <div class="spinner hidden" id="loading-spinner"></div>
-
-      <div id="weather-display" class="hidden">
-        <h2 id="location-name"></h2>
-        <img id="weather-icon" alt="Weather Icon" />
-        <p id="temperature"></p>
-        <p id="description"></p>
-      </div>
+        <!-- Error Modal -->
+        <div id="errorModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-4 sm:p-6 max-w-[90%] sm:max-w-sm w-full max-h-[80vh] overflow-y-auto modal-pop">
+                <h3 class="text-base sm:text-lg font-semibold text-red-600 mb-3 sm:mb-4">Error</h3>
+                <p id="errorMessage" class="text-gray-700 text-sm sm:text-base mb-3 sm:mb-4"></p>
+                <button id="closeModal" class="bg-blue-600 text-white px-4 py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-colors hidden">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
