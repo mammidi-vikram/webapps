@@ -2,13 +2,14 @@ const login = () => {
   const email = document.getElementById("email").value;
   const pass = document.getElementById("password").value;
 
-  // Check for missing or placeholder Firebase config
+  // Check if Firebase config is missing
   if (
     typeof firebaseConfig === "undefined" ||
     !firebaseConfig.apiKey ||
     firebaseConfig.apiKey.includes("your_api_key")
   ) {
-    alert("⚠️ Firebase is not configured. Please update firebase-config.js with your project’s credentials.");
+    const warning = document.getElementById("firebase-warning");
+    if (warning) warning.classList.remove("hidden");
     return;
   }
 
