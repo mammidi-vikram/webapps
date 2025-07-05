@@ -44,6 +44,7 @@ button {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 button:hover {
@@ -52,12 +53,19 @@ button:hover {
 
 #task-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 10px;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #e9ecef;
   border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+#task-list li span {
+  flex: 1;
+  word-break: break-word;
 }
 
 #task-list li.completed span {
@@ -78,5 +86,13 @@ button:hover {
   button {
     width: 100%;
   }
-}
 
+  #task-list li {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-buttons {
+    justify-content: flex-end;
+  }
+}
