@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gym Manager</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-  <div id="firebase-warning" class="warning hidden">
-    ⚠️ Firebase is not configured. Please insert your credentials in <code>firebase-config.js</code> for this app to work.
-  </div>
-
-  <div class="container">
-    <h1>🏋️ Gym Management Login</h1>
-    <div class="form-section">
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">Login</button>
-      <div id="message" class="error"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Manager</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 🌙 Dark Mode Toggle -->
+    <div class="theme-toggle">
+      <label>
+        <input type="checkbox" id="dark-toggle" />
+        Dark Mode
+      </label>
     </div>
-  </div>
 
-  <script src="auth.js"></script>
-</body>
+    <!-- 🔐 Firebase Config Warning -->
+    <div id="firebase-warning" class="warning hidden">
+      ⚠️ Firebase is not configured. Please insert your credentials in
+      <code>firebase-config.js</code> for this app to work.
+    </div>
+
+    <div class="container">
+      <h1>🏋️ Gym Management Login</h1>
+      <div class="form-section">
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="login()">Login</button>
+        <div id="message" class="error"></div>
+      </div>
+    </div>
+
+    <script src="auth.js"></script>
+  </body>
 </html>
