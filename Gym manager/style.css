@@ -25,7 +25,7 @@ body.dark {
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -33,7 +33,15 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 14px;
+  color: var(--text);
 }
 
 .container {
@@ -42,7 +50,7 @@ body {
   border-radius: 12px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -75,7 +83,8 @@ button:hover {
   background-color: var(--button-hover);
 }
 
-.warning, .error {
+.warning,
+.error {
   background-color: var(--error-bg);
   color: var(--error-text);
   padding: 10px 15px;
