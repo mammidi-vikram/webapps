@@ -65,3 +65,35 @@ button:hover {
   text-align: center;
 }
 
+/* Mobile Responsiveness for Weather App */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .weather-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .input-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input[type="text"],
+  button {
+    width: 100%;
+  }
+
+  #weather-display img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #weather-display h2,
+  #weather-display p {
+    font-size: 16px;
+    text-align: center;
+  }
+}
