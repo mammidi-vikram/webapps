@@ -1,8 +1,9 @@
 const API_KEY = "YOUR_OPENWEATHERMAP_API_KEY";
 
-// Warn user if key is missing or unchanged
+// ✅ UI warning for missing API key
 if (!API_KEY || API_KEY === "YOUR_OPENWEATHERMAP_API_KEY") {
-  alert("⚠️ Please insert your OpenWeatherMap API key in script.js to use the Weather App.");
+  const warningEl = document.getElementById("config-warning");
+  if (warningEl) warningEl.classList.remove("hidden");
 }
 
 document.getElementById("get-weather-btn").addEventListener("click", async () => {
