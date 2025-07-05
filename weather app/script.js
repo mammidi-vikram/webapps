@@ -1,5 +1,10 @@
 const API_KEY = "YOUR_OPENWEATHERMAP_API_KEY";
 
+// Warn user if key is missing or unchanged
+if (!API_KEY || API_KEY === "YOUR_OPENWEATHERMAP_API_KEY") {
+  alert("⚠️ Please insert your OpenWeatherMap API key in script.js to use the Weather App.");
+}
+
 document.getElementById("get-weather-btn").addEventListener("click", async () => {
   const city = document.getElementById("city-input").value.trim();
   const weatherDisplay = document.getElementById("weather-display");
@@ -20,7 +25,7 @@ document.getElementById("get-weather-btn").addEventListener("click", async () =>
     );
 
     if (!response.ok) {
-      throw new Error("City not found");
+      throw new Error("City not found or invalid API key.");
     }
 
     const data = await response.json();
