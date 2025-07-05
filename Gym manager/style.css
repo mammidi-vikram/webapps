@@ -29,3 +29,17 @@ input[type="password"] {
   height: 39px;
   box-sizing: border-box;
 }
+.warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
