@@ -1,78 +1,90 @@
+:root {
+  --bg: #ffffff;
+  --text: #333;
+  --card: #f9f9f9;
+  --accent: #2f855a;
+  --button-hover: #276749;
+  --error-bg: #fff3cd;
+  --error-text: #856404;
+}
+
+body.dark {
+  --bg: #1a202c;
+  --text: #f0f0f0;
+  --card: #2d3748;
+  --accent: #48bb78;
+  --button-hover: #38a169;
+  --error-bg: #4a5568;
+  --error-text: #fbd38d;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  background-color: #f4f4f4;
+  transition: background-color 0.3s ease;
 }
 
-.login-container {
-  width: 300px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 5px #ccc;
-  margin-top: 100px;
-}
-
-input, button {
+.container {
+  background-color: var(--card);
+  padding: 30px 20px;
+  border-radius: 12px;
+  max-width: 400px;
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-h1, h2 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
   text-align: center;
 }
 
-input[type="email"],
-input[type="password"] {
-  width: 300px;
-  height: 39px;
-  box-sizing: border-box;
+h1 {
+  margin-bottom: 20px;
 }
-.warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
+
+input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+.warning, .error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
   padding: 10px 15px;
   border-radius: 6px;
-  margin-bottom: 15px;
+  margin-top: 10px;
   font-size: 14px;
-  text-align: center;
+  border: 1px solid #eee;
 }
 
 .hidden {
   display: none;
-}
-
-/* Mobile Responsiveness for GYM Management System */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-
-  .container,
-  .form-section {
-    width: 100%;
-    padding: 20px;
-  }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  button {
-    width: 100%;
-    margin-bottom: 12px;
-    font-size: 16px;
-  }
-
-  .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  h1, h2 {
-    font-size: 22px;
-    text-align: center;
-  }
 }
