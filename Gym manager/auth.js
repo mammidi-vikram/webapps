@@ -2,7 +2,6 @@ const login = () => {
   const email = document.getElementById("email").value;
   const pass = document.getElementById("password").value;
 
-  // Firebase config check
   if (
     typeof firebaseConfig === "undefined" ||
     !firebaseConfig.apiKey ||
