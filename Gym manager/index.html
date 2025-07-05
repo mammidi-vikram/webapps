@@ -1,36 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gym Manager</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- 🌙 Dark Mode Toggle -->
-    <div class="theme-toggle">
-      <label>
-        <input type="checkbox" id="dark-toggle" />
-        Dark Mode
-      </label>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Error Overlay for Missing Firebase Config -->
+    <div id="error-overlay" class="hidden">
+        <div class="error-box">
+            <h2 class="text-xl font-bold mb-4">Firebase Configuration Error</h2>
+            <p>Please provide valid Firebase API credentials in the <code>firebaseConfig</code> object in <code>script.js</code>.</p>
+            <p class="mt-2">The application will not function until valid credentials are provided.</p>
+        </div>
     </div>
 
-    <!-- 🔐 Firebase Config Warning -->
-    <div id="firebase-warning" class="warning hidden">
-      ⚠️ Firebase is not configured. Please insert your credentials in
-      <code>firebase-config.js</code> for this app to work.
+    <!-- Main Application -->
+    <div id="app" class="flex h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar fixed inset-y-0 left-0 w-64 text-white p-4 sm:relative sm:translate-x-0">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                Gym Management
+            </h2>
+            <nav id="nav-menu" class="space-y-2"></nav>
+            <button id="logout-btn" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded">Logout</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-4 sm:p-6 overflow-auto">
+            <button id="menu-toggle" class="sm:hidden mb-4 p-2 bg-gray-800 text-white rounded flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                Menu
+            </button>
+            <div id="content" class="content-card p-6">
+                <h1 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                    Welcome to Gym Management System
+                </h1>
+                <div id="auth-section">
+                    <h2 class="text-xl font-semibold mb-4">Login</h2>
+                    <input id="email" type="email" placeholder="Email" class="w-full p-2 mb-2 border rounded">
+                    <input id="password" type="password" placeholder="Password" class="w-full p-2 mb-2 border rounded">
+                    <select id="role" class="w-full p-2 mb-4 border rounded">
+                        <option value="admin">Admin</option>
+                        <option value="member">Member</option>
+                        <option value="user">User</option>
+                    </select>
+                    <button id="login-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">Login</button>
+                </div>
+                <div id="main-content" class="hidden"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-      <h1>🏋️ Gym Management Login</h1>
-      <div class="form-section">
-        <input type="email" id="email" placeholder="Email" />
-        <input type="password" id="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
-        <div id="message" class="error"></div>
-      </div>
-    </div>
-
-    <script src="auth.js"></script>
-  </body>
+    <script src="script.js"></script>
+</body>
 </html>
