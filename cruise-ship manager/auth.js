@@ -1,13 +1,22 @@
-function login() {
+const login = () => {
   const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const role = document.getElementById("role").value;
+  const pass = document.getElementById("password").value;
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
+  // Check for missing or placeholder Firebase config
+  if (
+    typeof firebaseConfig === "undefined" ||
+    !firebaseConfig.apiKey ||
+    firebaseConfig.apiKey.includes("your_api_key")
+  ) {
+    alert("⚠️ Firebase is not configured. Please update firebase-config.js with your project’s credentials.");
+    return;
+  }
+
+  firebase.auth().signInWithEmailAndPassword(email, pass)
     .then(() => {
-      window.location.href = `${role}.html`;
+      window.location.href = "dashboard.html";
     })
-    .catch((error) => {
-      document.getElementById("message").textContent = error.message;
+    .catch(err => {
+      document.getElementById("message").innerText = err.message;
     });
-}
+};
