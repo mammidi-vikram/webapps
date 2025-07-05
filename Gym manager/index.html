@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gym Management System</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Gym Manager</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div id="firebase-warning" class="warning hidden">
-  ⚠️ Firebase is not configured. Please insert your credentials in <code>firebase-config.js</code> for this app to work.
+    ⚠️ Firebase is not configured. Please insert your credentials in <code>firebase-config.js</code> for this app to work.
   </div>
-  <div class="login-container">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-    <p id="message"></p>
+
+  <div class="container">
+    <h1>🏋️ Gym Management Login</h1>
+    <div class="form-section">
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <div id="message" class="error"></div>
+    </div>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="firebase-config.js"></script>
+
   <script src="auth.js"></script>
 </body>
 </html>
