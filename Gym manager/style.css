@@ -43,3 +43,36 @@ input[type="password"] {
 .hidden {
   display: none;
 }
+
+/* Mobile Responsiveness for GYM Management System */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container,
+  .form-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  button {
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h1, h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+}
