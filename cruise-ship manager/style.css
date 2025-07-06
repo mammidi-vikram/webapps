@@ -1,76 +1,31 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
 }
 
-.login-container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  width: 320px;
+header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-input, button, select {
-  width: 300px;
-  height: 39px;
-  margin: 10px 0;
-  padding: 5px;
-  box-sizing: border-box;
+main {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-h2 {
-  text-align: center;
-}
-.warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-  padding: 10px 15px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Mobile Responsiveness for Cruise Ship Management System */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
   }
 
-  .form-container,
-  .dashboard,
-  .data-section {
-    width: 100%;
-    padding: 20px;
+  h2 {
+    font-size: 1.25rem;
   }
 
-  input,
-  button,
-  select {
-    width: 100%;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-
-  table {
-    font-size: 14px;
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  h1, h2 {
-    font-size: 20px;
-    text-align: center;
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 
+button {
+  transition: background-color 0.3s ease;
+}
