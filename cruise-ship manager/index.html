@@ -1,33 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cruise Ship Management</title>
-  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div id="firebase-warning" class="warning hidden">
-  ⚠️ Firebase API key is missing. Please update <code>firebase-config.js</code> with your Firebase credentials.
+<body class="bg-gray-100 font-sans">
+  <div id="api-error" class="hidden fixed inset-0 bg-red-600 bg-opacity-90 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+      <h2 class="text-2xl font-bold text-red-600 mb-4">Configuration Error</h2>
+      <p class="text-gray-700 mb-4">Please provide a valid Firebase API key in config.js to use the application.</p>
+      <button onclick="checkApiKey()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Retry</button>
+    </div>
   </div>
-
-  <div class="login-container">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <select id="role">
-      <option value="voyager">Voyager</option>
-      <option value="admin">Admin</option>
-      <option value="manager">Manager</option>
-      <option value="head-cook">Head-Cook</option>
-      <option value="supervisor">Supervisor</option>
-    </select>
-    <button onclick="login()">Login</button>
-    <p id="message"></p>
+  <div id="app" class="min-h-screen flex flex-col">
+    <header class="bg-blue-800 text-white p-4">
+      <h1 class="text-2xl font-bold text-center">Cruise Ship Management</h1>
+    </header>
+    <main class="flex-grow p-4">
+      <div id="auth-container" class="max-w-md mx-auto">
+        <h2 id="auth-title" class="text-xl font-semibold mb-4">Login</h2>
+        <select id="user-type" class="w-full p-2 mb-4 border rounded">
+          <option value="voyager">Voyager</option>
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+          <option value="head-cook">Head Cook</option>
+          <option value="supervisor">Supervisor</option>
+        </select>
+        <input id="email" type="email" placeholder="Email" class="w-full p-2 mb-4 border rounded">
+        <input id="password" type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded">
+        <button id="auth-button" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
+        <button id="toggle-auth" class="w-full text-blue-600 mt-2">Register</button>
+      </div>
+      <div id="voyager-dashboard" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Voyager Dashboard</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="font-semibold mb-2">Catering Order</h3>
+            <select id="catering-item" class="w-full p-2 mb-2 border rounded">
+              <option value="snacks">Snacks</option>
+              <option value="food">Food</option>
+              <option value="beverages">Beverages</option>
+            </select>
+            <button onclick="placeOrder('catering')" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Order</button>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="font-semibold mb-2">Stationery Order</h3>
+            <select id="stationery-item" class="w-full p-2 mb-2 border rounded">
+              <option value="gift">Gift Items</option>
+              <option value="chocolates">Chocolates</option>
+              <option value="books">Tale Books</option>
+            </select>
+            <button onclick="placeOrder('stationery')" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Order</button>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="font-semibold mb-2">Resort-Movie Booking</h3>
+            <select id="movie" class="w-full p-2 mb-2 border rounded">
+              <option value="movie1">Movie 1</option>
+              <option value="movie2">Movie 2</option>
+            </select>
+            <button onclick="bookService('movie')" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Book</button>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="font-semibold mb-2">Party Hall Booking</h3>
+            <select id="party-hall" class="w-full p-2 mb-2 border rounded">
+              <option value="birthday">Birthday Party</option>
+              <option value="wedding">Wedding Party</option>
+            </select>
+            <button onclick="bookService('party-hall')" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Book</button>
+          </div>
+        </div>
+        <button onclick="logout()" class="mt-4 bg-red-600 text-white p-2 rounded hover:bg-red-700">Logout</button>
+      </div>
+      <div id="admin-dashboard" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Admin Dashboard</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold mb-2">Manage Items</h3>
+          <input id="new-item" type="text" placeholder="New Item Name" class="w-full p-2 mb-2 border rounded">
+          <select id="item-type" class="w-full p-2 mb-2 border rounded">
+            <option value="catering">Catering</option>
+            <option value="stationery">Stationery</option>
+          </select>
+          <button onclick="addItem()" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Add Item</button>
+        </div>
+        <button onclick="logout()" class="mt-4 bg-red-600 text-white p-2 rounded hover:bg-red-700">Logout</button>
+      </div>
+      <div id="manager-dashboard" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Manager Dashboard</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold mb-2">View Bookings</h3>
+          <div id="manager-bookings"></div>
+        </div>
+        <button onclick="logout()" class="mt-4 bg-red-600 text-white p-2 rounded hover:bg-red-700">Logout</button>
+      </div>
+      <div id="head-cook-dashboard" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Head Cook Dashboard</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold mb-2">Catering Orders</h3>
+          <div id="catering-orders"></div>
+        </div>
+        <button onclick="logout()" class="mt-4 bg-red-600 text-white p-2 rounded hover:bg-red-700">Logout</button>
+      </div>
+      <div id="supervisor-dashboard" class="hidden max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Supervisor Dashboard</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold mb-2">Stationery Orders</h3>
+          <div id="stationery-orders"></div>
+        </div>
+        <button onclick="logout()" class="mt-4 bg-red-600 text-white p-2 rounded hover:bg-red-700">Logout</button>
+      </div>
+    </main>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="auth.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
